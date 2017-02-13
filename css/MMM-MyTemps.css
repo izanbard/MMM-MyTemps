@@ -1,0 +1,18 @@
+.MMM-MyTemps .title {
+    font-family: calibri, sans-serif;
+    font-size: 25pt;
+    font-weight: bold
+}
+
+.MMM-MyTemps .temp {
+    font-family: arial, sans-serif;
+    font-size: 33pt;
+}
+
+.MMM-MyTemps .celsius {
+    color: blue
+}
+
+.MMM-MyTemps .fahrenheit {
+    color: green
+}

@@ -17,12 +17,19 @@ $temp_f = ($temp_c * 9.0) / 5.0 + 32.0;
 $temp_c2 = number_format($temp2[1] / 1000, 1, '.', '');
 $temp_f2 = ($temp_c2 * 9.0) / 5.0 + 32.0;
 
+$doorStateArray = [
+    0 => "closed",
+    1 => "open",
+];
+$doorStatus = $doorStateArray[trim(shell_exec("gpio -g read 18"))];
+
 if ($_GET['format'] === 'json') {
     $jsonArray = [
-        'temp_c'  => $temp_c,
-        'temp_f'  => $temp_f,
-        'temp_c2' => $temp_c2,
-        'temp_f2' => $temp_f2,
+        'temp_c'    => $temp_c,
+        'temp_f'    => $temp_f,
+        'temp_c2'   => $temp_c2,
+        'temp_f2'   => $temp_f2,
+        'doorState' => $doorStatus,
     ];
     echo json_encode($jsonArray);
 } else {
@@ -48,6 +55,14 @@ if ($_GET['format'] === 'json') {
             .fahrenheit {
                 color: green
             }
+
+            .open {
+                color: green;
+            }
+
+            .closed {
+                color: red;
+            }
         </style>
     </head>
 
@@ -60,6 +75,10 @@ if ($_GET['format'] === 'json') {
         The current indoor temperature is<br/>
         <span class="temp celsius"><?= $temp_c2 ?> C</span><br/>
         <span class="temp fahrenheit"><?= $temp_f2 ?> F</span><br/>
+    </p>
+    <p class="title">
+        The garage door is
+        <span class="<?php echo(($doorStatus == "open") ? "open" : "closed") ?>"><?= $doorStatus ?></span>
     </p>
     <a href="http://192.168.1.41/123.html">
         <button>Back</button>

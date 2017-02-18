@@ -3,7 +3,7 @@
 Module.register("MMM-MyTemps", {
     defaults: {
         host: "192.168.1.41",
-        path: "/temp2cf.php?format=json",
+        path: "/temp2mcf.php?format=json",
         reloadInterval: 60 * 1000 //1 min
     },
 
@@ -32,39 +32,24 @@ Module.register("MMM-MyTemps", {
 
         if (!this.loaded) {
             wrapper.innerHTML = "<span class='small fa fa-refresh fa-spin fa-fw'></span>";
-            wrapper.className = "small dimmed";
+            wrapper.classList.add("small");
             return wrapper;
         }
 
         var caption = document.createElement("div");
         caption.classList.add("title");
-        caption.innerHTML = "The current outside temperature is";
+        caption.innerHTML = "Garden: " + this.temps.celsius + "°C / " + this.temps.fahrenheit + "°F";
         wrapper.appendChild(caption);
-
-        var celsius = document.createElement("div");
-        celsius.classList.add("temp","celsius");
-        celsius.innerHTML = this.temps.celsius + " C";
-        wrapper.appendChild(celsius);
-
-        var fahrenheit = document.createElement("div");
-        fahrenheit.classList.add("temp","fahrenheit");
-        fahrenheit.innerHTML = this.temps.fahrenheit + " F";
-        wrapper.appendChild(fahrenheit);
 
         var caption2 = document.createElement("div");
         caption2.classList.add("title");
-        caption2.innerHTML = "The current indoor temperature is";
+        caption2.innerHTML = "Garage: " + this.temps.celsius2 + "°C / " + this.temps.fahrenheit2 + "°F";
         wrapper.appendChild(caption2);
 
-        var celsius2 = document.createElement("div");
-        celsius2.classList.add("temp", "celsius");
-        celsius2.innerHTML = this.temps.celsius2 + " C";
-        wrapper.appendChild(celsius2);
-
-        var fahrenheit2 = document.createElement("div");
-        fahrenheit2.classList.add("temp", "fahrenheit");
-        fahrenheit2.innerHTML = this.temps.fahrenheit2 + " F";
-        wrapper.appendChild(fahrenheit2);
+        var caption3 = document.createElement("div");
+        caption3.classList.add("title");
+        caption3.innerHTML = "Garage Door is " + this.temps.doorState;
+        wrapper.appendChild(caption3);
 
         return wrapper;
     },
@@ -80,6 +65,7 @@ Module.register("MMM-MyTemps", {
             this.temps.fahrenheit = payload.temp_f;
             this.temps.celsius2 = payload.temp_c2;
             this.temps.fahrenheit2 = payload.temp_f2;
+            this.temps.doorState = payload.doorState;
             this.updateDom();
         }
     }

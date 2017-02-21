@@ -29,21 +29,21 @@ Module.register("MMM-MyTemps", {
 
     getDom: function () {
         var wrapper = document.createElement("div");
+            wrapper.classList.add("small");
 
         if (!this.loaded) {
             wrapper.innerHTML = "<span class='small fa fa-refresh fa-spin fa-fw'></span>";
-            wrapper.classList.add("small");
             return wrapper;
         }
 
         var caption = document.createElement("div");
         caption.classList.add("title");
-        caption.innerHTML = "Garden: " + this.temps.celsius + "°C / " + this.temps.fahrenheit + "°F";
+        caption.innerHTML = '<span class="fahrenheit">Garden: ' + this.temps.celsius + "°C / " + this.temps.fahrenheit + "°F</span>";
         wrapper.appendChild(caption);
 
         var caption2 = document.createElement("div");
         caption2.classList.add("title");
-        caption2.innerHTML = "Garage: " + this.temps.celsius2 + "°C / " + this.temps.fahrenheit2 + "°F";
+        caption2.innerHTML = '<span class="celsius">Garage: ' + this.temps.celsius2 + "°C / " + this.temps.fahrenheit2 + "°F</span>";
         wrapper.appendChild(caption2);
 
         var caption3 = document.createElement("div");
@@ -65,7 +65,6 @@ Module.register("MMM-MyTemps", {
             this.temps.fahrenheit = payload.temp_f;
             this.temps.celsius2 = payload.temp_c2;
             this.temps.fahrenheit2 = payload.temp_f2;
-            this.temps.doorState = payload.doorState;
             this.updateDom();
         }
     }

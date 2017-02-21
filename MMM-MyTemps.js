@@ -65,6 +65,7 @@ Module.register("MMM-MyTemps", {
             this.temps.fahrenheit = payload.temp_f;
             this.temps.celsius2 = payload.temp_c2;
             this.temps.fahrenheit2 = payload.temp_f2;
+            this.temps.doorState = payload.doorState;
             this.updateDom();
         }
     }
